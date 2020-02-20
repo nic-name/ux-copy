@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+
+$(document).ready(function(){ //prebuilt function in jquery that jquery will call when the page has fully loaded
+	$("button").click(function(){
+	var data = {
+			"welcome" 		: "Awks... it's actually called something else",
+			"score-dd" 		: "flip it",
+			"name-dd" 		: "reverse it",
+			"role-type" 	: "something else"
+		};
+	populateLabels(data);
+	});
+});
+
+var populateLabels = function(copyStrings){
+	$("[meta-productlbl]").each(function(){
+			var productLabel= $(this).attr('meta-productlbl');
+			if (copyStrings[productLabel] != undefined){
+				$(this).text(copyStrings[productLabel]);
+			}
+		});
+}
+
+var getLabelData = function(){
+    $.ajax({url: "demo_test.txt", success: function(result){
+    populateLabels(result); 
+    }});
+}
+
+</script>
+</head>
+<body>
+
+<h1 meta-productlbl="welcome">Welcome to Product</h1>
+
+	<p meta-productlbl="score-dd">Select Score from the drop-down menu...</p> <!-- I could use IDs but these will be used by the devs for something else. These tags are unique to me.-->
+	<select name="score">
+	  <option value="high">High</option>
+	  <option value="medium">Medium</option>
+	  <option value="low">Low</option>
+	</select>
+	<p meta-productlbl="name-dd">Select the name</p>
+	<select name="name">
+	  <option value="Mary">Mary</option>
+	  <option value="Sheila">Sheila</option>
+	  <option value="Paul">Paul</option>
+	</select>
+	<p meta-productlbl="role-type">What is your role?</p>
+	<select name="Role Type">
+	  <option value="manager">Manager</option>
+	  <option value="administrator">Administrator</option>
+	</select>
+
+	<p><button>Click me to switch paragraphs</button></p>
+
+</body>
+</html>
